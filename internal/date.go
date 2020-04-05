@@ -13,7 +13,7 @@ import (
 )
 
 type DateInput struct {
-	date string
+	Date string `json:"date" binding:"required"`
 }
 
 func getDateString() string {
@@ -34,25 +34,26 @@ func setDate(dateStr string, c *gin.Context) error {
 		return err
 	}
 
-	out, err := exec.Command("date -s " + dateStr).Output()
+	args := []string{"date", "--set", dateStr}
+	_, err = exec.Command("sudo", args...).Output()
 	if err != nil {
 		return err
 	}
 
-	log.Println("System date set to:", out)
+	log.Println("System date set to:", dateStr)
 	return nil
 }
 
 func SetDate(c *gin.Context) {
 	var dateInput DateInput
-	err := c.ShouldBindJSON(&dateInput)
+	err := c.BindJSON(&dateInput)
 	if err != nil {
 		log.Println(err.Error())
 		httputil.NewError(c, http.StatusBadRequest, err)
 		return
 	}
 
-	err = setDate(dateInput.date, c)
+	err = setDate(dateInput.Date, c)
 	if err != nil {
 		log.Println(err.Error())
 		httputil.NewError(c, http.StatusBadRequest, err)

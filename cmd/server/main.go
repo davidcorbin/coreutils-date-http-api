@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os/exec"
 	"strconv"
@@ -32,6 +33,12 @@ func main() {
 
 	if i != 0 {
 		log.Fatal("This program must be run as root!")
+	}
+
+	_, lookErr := exec.LookPath("date")
+	if lookErr != nil {
+		fmt.Printf("Date binary not found, cannot set system date: %s\n", lookErr.Error())
+		return
 	}
 
 	internal.StartHTTPServer()
