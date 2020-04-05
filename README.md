@@ -8,11 +8,15 @@ WARNING: This API requires root access to manage the system date. Additionally, 
 
 ## Build
 
+```bash
 go get -d -v ./...
 go build -o coreutils-date-http-api cmd/server/main.go
+```
 
 ## Cross compile for ARM64
 
+```bash
 go get -d -v ./...
 go get golang.org/x/sys/unix
 env GOOS=linux GOARCH=arm GOARM=5 go build -o coreutils-date-http-api cmd/server/main.go
+```
