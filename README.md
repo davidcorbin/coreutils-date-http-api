@@ -4,7 +4,7 @@
 
 REST API for managing coreutils date tool.
 
-WARNING: This API requires root access to manage the system date. Additionally, it doesn't require use authentication. Always run behind an authenticated reverse proxy.
+WARNING: This API requires root access to manage the system date. Additionally, it doesn't require user authentication. Always run behind an authenticated reverse proxy.
 
 ## Build
 
